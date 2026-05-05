@@ -1,0 +1,50 @@
+## Build results
+bin/
+obj/
+
+## Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Rider / VS Code
+.idea/
+.vscode/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Logs
+*.log
+
+## NuGet
+*.nupkg
+packages/
+.nuget/
+
+## Test results
+TestResults/
+
+## Generated files
+*.cache
+*.pdb
+*.exe
+*.dll
+
+## Publish output
+publish/
+
+## Dotnet tools
+.dotnet/
+
+## Environment files
+.env
+.env.*
+
+## Coverage
+coverage/
+*.coverage
+*.coveragexml

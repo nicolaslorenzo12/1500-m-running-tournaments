@@ -1,0 +1,6 @@
+@_1500_m_race_simulation_HostAddress = http://localhost:5212
+
+GET {{_1500_m_race_simulation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
