@@ -1,6 +1,5 @@
-﻿namespace _1500_m_race_simulation.Models
+﻿public enum ResultStatus
 {
-    public class ResultStatus
-    {
-    }
+    Finished,
+    DNF
 }
