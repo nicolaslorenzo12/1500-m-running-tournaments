@@ -1,5 +1,6 @@
 ﻿public enum ResultStatus
 {
     Finished,
-    DNF
+    DNF,
+    Pending
 }

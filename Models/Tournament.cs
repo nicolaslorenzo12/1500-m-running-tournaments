@@ -1,4 +1,6 @@
-﻿namespace _1500_m_race_simulation.Models
+﻿using System.Diagnostics;
+
+namespace _1500_m_race_simulation.Models
 {
     public class Tournament
     {
@@ -12,11 +14,6 @@
 
         public Tournament(string name)
         {
-            SetName(name);
-        }
-
-        private void SetName(string name)
-        {
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentException(
@@ -24,6 +21,11 @@
             }
 
             Name = name;
+        }
+
+        public void AddRace(Race race)
+        {
+            Races.Add(race);
         }
     }
 }

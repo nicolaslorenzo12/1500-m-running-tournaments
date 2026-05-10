@@ -11,7 +11,7 @@ namespace _1500_m_race_simulation.Data
 
         public DbSet<Runner> Runners => Set<Runner>();
 
-        public DbSet<RunnerResult> RunnerResults => Set<RunnerResult>();
+        public DbSet<RaceEntry> RaceEntries => Set<RaceEntry>();
 
         public AppDbContext(
             DbContextOptions<AppDbContext> options)

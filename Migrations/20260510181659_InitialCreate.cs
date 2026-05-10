@@ -11,11 +11,26 @@ namespace _1500_m_race_simulation.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Runners",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Ranking = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Runners", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Tournaments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1")
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,33 +57,7 @@ namespace _1500_m_race_simulation.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Runners",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Ranking = table.Column<int>(type: "int", nullable: false),
-                    RaceId = table.Column<int>(type: "int", nullable: true),
-                    TournamentId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Runners", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Runners_Races_RaceId",
-                        column: x => x.RaceId,
-                        principalTable: "Races",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Runners_Tournaments_TournamentId",
-                        column: x => x.TournamentId,
-                        principalTable: "Tournaments",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RunnerResults",
+                name: "RaceEntries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -81,14 +70,14 @@ namespace _1500_m_race_simulation.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RunnerResults", x => x.Id);
+                    table.PrimaryKey("PK_RaceEntries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RunnerResults_Races_RaceId",
+                        name: "FK_RaceEntries_Races_RaceId",
                         column: x => x.RaceId,
                         principalTable: "Races",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_RunnerResults_Runners_RunnerId",
+                        name: "FK_RaceEntries_Runners_RunnerId",
                         column: x => x.RunnerId,
                         principalTable: "Runners",
                         principalColumn: "Id",
@@ -96,28 +85,18 @@ namespace _1500_m_race_simulation.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Races_TournamentId",
-                table: "Races",
-                column: "TournamentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RunnerResults_RaceId",
-                table: "RunnerResults",
+                name: "IX_RaceEntries_RaceId",
+                table: "RaceEntries",
                 column: "RaceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RunnerResults_RunnerId",
-                table: "RunnerResults",
+                name: "IX_RaceEntries_RunnerId",
+                table: "RaceEntries",
                 column: "RunnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Runners_RaceId",
-                table: "Runners",
-                column: "RaceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Runners_TournamentId",
-                table: "Runners",
+                name: "IX_Races_TournamentId",
+                table: "Races",
                 column: "TournamentId");
         }
 
@@ -125,13 +104,13 @@ namespace _1500_m_race_simulation.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "RunnerResults");
-
-            migrationBuilder.DropTable(
-                name: "Runners");
+                name: "RaceEntries");
 
             migrationBuilder.DropTable(
                 name: "Races");
+
+            migrationBuilder.DropTable(
+                name: "Runners");
 
             migrationBuilder.DropTable(
                 name: "Tournaments");

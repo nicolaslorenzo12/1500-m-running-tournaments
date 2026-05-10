@@ -22,21 +22,6 @@ namespace _1500_m_race_simulation.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RaceRunner", b =>
-                {
-                    b.Property<int>("RacesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RunnersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RacesId", "RunnersId");
-
-                    b.HasIndex("RunnersId");
-
-                    b.ToTable("RaceRunner");
-                });
-
             modelBuilder.Entity("_1500_m_race_simulation.Models.Race", b =>
                 {
                     b.Property<int>("Id")
@@ -58,27 +43,7 @@ namespace _1500_m_race_simulation.Migrations
                     b.ToTable("Races");
                 });
 
-            modelBuilder.Entity("_1500_m_race_simulation.Models.Runner", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Ranking")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Runners");
-                });
-
-            modelBuilder.Entity("_1500_m_race_simulation.Models.RunnerResult", b =>
+            modelBuilder.Entity("_1500_m_race_simulation.Models.RaceEntry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,7 +72,27 @@ namespace _1500_m_race_simulation.Migrations
 
                     b.HasIndex("RunnerId");
 
-                    b.ToTable("RunnerResults");
+                    b.ToTable("RaceEntries");
+                });
+
+            modelBuilder.Entity("_1500_m_race_simulation.Models.Runner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Ranking")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Runners");
                 });
 
             modelBuilder.Entity("_1500_m_race_simulation.Models.Tournament", b =>
@@ -127,21 +112,6 @@ namespace _1500_m_race_simulation.Migrations
                     b.ToTable("Tournaments");
                 });
 
-            modelBuilder.Entity("RaceRunner", b =>
-                {
-                    b.HasOne("_1500_m_race_simulation.Models.Race", null)
-                        .WithMany()
-                        .HasForeignKey("RacesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("_1500_m_race_simulation.Models.Runner", null)
-                        .WithMany()
-                        .HasForeignKey("RunnersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("_1500_m_race_simulation.Models.Race", b =>
                 {
                     b.HasOne("_1500_m_race_simulation.Models.Tournament", null)
@@ -149,10 +119,10 @@ namespace _1500_m_race_simulation.Migrations
                         .HasForeignKey("TournamentId");
                 });
 
-            modelBuilder.Entity("_1500_m_race_simulation.Models.RunnerResult", b =>
+            modelBuilder.Entity("_1500_m_race_simulation.Models.RaceEntry", b =>
                 {
                     b.HasOne("_1500_m_race_simulation.Models.Race", null)
-                        .WithMany("Results")
+                        .WithMany("Entries")
                         .HasForeignKey("RaceId");
 
                     b.HasOne("_1500_m_race_simulation.Models.Runner", "Runner")
@@ -166,7 +136,7 @@ namespace _1500_m_race_simulation.Migrations
 
             modelBuilder.Entity("_1500_m_race_simulation.Models.Race", b =>
                 {
-                    b.Navigation("Results");
+                    b.Navigation("Entries");
                 });
 
             modelBuilder.Entity("_1500_m_race_simulation.Models.Tournament", b =>

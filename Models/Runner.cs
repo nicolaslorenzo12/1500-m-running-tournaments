@@ -8,25 +8,26 @@
 
         public int Ranking { get; private set; }
 
-        public List<Race> Races { get; private set; } = new();
-
-
         private Runner() { }
 
-        public Runner(string name, int ranking)
+        public Runner(
+            string name,
+            int ranking)
         {
             if (string.IsNullOrWhiteSpace(name))
+            {
                 throw new ArgumentException(
                     "Name cannot be empty.");
+            }
 
             Name = name;
 
             SetRanking(ranking);
         }
 
-        public void UpdateRanking(int newRanking)
+        public void UpdateRanking(int ranking)
         {
-            SetRanking(newRanking);
+            SetRanking(ranking);
         }
 
         private void SetRanking(int ranking)
