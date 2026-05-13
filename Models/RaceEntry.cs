@@ -18,8 +18,13 @@
 
         public RaceEntry(Runner runner)
         {
-            Runner = runner;
+            if (runner == null)
+            {
+                throw new ArgumentNullException(nameof(runner));
+            }
 
+            Runner = runner;
+            RunnerId = runner.Id;
             Status = ResultStatus.Pending;
         }
     }

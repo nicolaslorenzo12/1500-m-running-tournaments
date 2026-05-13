@@ -14,11 +14,14 @@ namespace _1500_m_race_simulation.Services
         private const int FinalRaceCount = 1;
 
         private readonly IRunnerRepository _runnerRepository;
+        private readonly ITournamentRepository _tournamentRepository;
 
         public TournamentService(
-            IRunnerRepository runnerRepository)
+            IRunnerRepository runnerRepository,
+            ITournamentRepository tournamentRepository)
         {
             _runnerRepository = runnerRepository;
+            _tournamentRepository = tournamentRepository;
         }
 
         public Tournament CreateTournament()
@@ -50,6 +53,8 @@ namespace _1500_m_race_simulation.Services
                 RoundType.Final,
                 FinalRaceCount);
 
+            _tournamentRepository.Add(tournament);
+
             return tournament;
         }
 
@@ -68,7 +73,7 @@ namespace _1500_m_race_simulation.Services
 
                 race.AddRunners(raceRunners);
 
-                tournament.Races.Add(race);
+                tournament.AddRace(race);
             }
         }
 
@@ -79,8 +84,7 @@ namespace _1500_m_race_simulation.Services
         {
             for (int i = 0; i < raceCount; i++)
             {
-                tournament.Races.Add(
-                    new Race(roundType));
+                tournament.AddRace(new Race(roundType));
             }
         }
     }
