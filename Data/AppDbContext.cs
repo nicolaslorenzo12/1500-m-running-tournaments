@@ -23,6 +23,8 @@ namespace running_race_simulation.Data
             // When EF builds the model, it uses this configuration to map the Runner entity
             // and define its database behavior (including seeding initial data via migrations).
             modelBuilder.ApplyConfiguration(new RunnerConfiguration());
+
+            modelBuilder.ApplyConfiguration(new TournamentConfiguration());
         }
     }
 }

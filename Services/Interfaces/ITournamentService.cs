@@ -4,6 +4,6 @@ namespace running_race_simulation.Services.Interfaces
 {
     public interface ITournamentService
     {
-        Tournament CreateTournament();
+        Tournament CreateTournament(string tournamentName);
     }
 }

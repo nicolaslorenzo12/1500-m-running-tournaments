@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Core;
+using Microsoft.AspNetCore.Mvc;
 using running_race_simulation.Mappers;
 using running_race_simulation.Services.Interfaces;
 
@@ -17,9 +18,9 @@ namespace running_race_simulation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTournament()
+        public IActionResult CreateTournament([FromBody] string name)
         {
-            var createdTournament = _tournamentService.CreateTournament();
+            var createdTournament = _tournamentService.CreateTournament(name);
 
             return Ok(TournamentMapper.MapCreatedTournamentToDTO(createdTournament));
         }

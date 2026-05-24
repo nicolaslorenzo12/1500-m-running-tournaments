@@ -24,7 +24,7 @@ namespace running_race_simulation.Services
             _tournamentRepository = tournamentRepository;
         }
 
-        public Tournament CreateTournament()
+        public Tournament CreateTournament(string tournamentName)
         {
             var allRunners = _runnerRepository.GetAll();
 
@@ -39,7 +39,7 @@ namespace running_race_simulation.Services
                 .Take(TotalTournamentRunners)
                 .ToList();
 
-            var tournament = new Tournament("First tournament");
+            var tournament = new Tournament(tournamentName);
 
             CreateHeatRaces(tournament, selectedRunners);
 
