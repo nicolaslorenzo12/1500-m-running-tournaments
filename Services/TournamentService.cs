@@ -1,8 +1,8 @@
-﻿using _1500_m_race_simulation.Models;
-using _1500_m_race_simulation.Repositories.Interfaces;
-using _1500_m_race_simulation.Services.Interfaces;
+﻿using running_race_simulation.Models;
+using running_race_simulation.Repositories.Interfaces;
+using running_race_simulation.Services.Interfaces;
 
-namespace _1500_m_race_simulation.Services
+namespace running_race_simulation.Services
 {
     public class TournamentService : ITournamentService
     {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using _1500_m_race_simulation.Services.Interfaces;
+using running_race_simulation.Mappers;
+using running_race_simulation.Services.Interfaces;
 
-namespace _1500_m_race_simulation.Controllers
+namespace running_race_simulation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -18,9 +19,9 @@ namespace _1500_m_race_simulation.Controllers
         [HttpPost]
         public IActionResult CreateTournament()
         {
-            var tournament = _tournamentService.CreateTournament();
+            var createdTournament = _tournamentService.CreateTournament();
 
-            return Ok(tournament);
+            return Ok(TournamentMapper.MapCreatedTournamentToDTO(createdTournament));
         }
     }
 }

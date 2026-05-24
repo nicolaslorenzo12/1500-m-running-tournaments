@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace _1500_m_race_simulation.Migrations
+namespace running_race_simulation.Migrations
 {
     /// <inheritdoc />
     public partial class SeedRunners : Migration

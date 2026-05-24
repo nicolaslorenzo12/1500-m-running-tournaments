@@ -1,9 +1,9 @@
-﻿using _1500_m_race_simulation.Data;
-using _1500_m_race_simulation.Models;
-using _1500_m_race_simulation.Repositories.Interfaces;
+﻿using running_race_simulation.Data;
+using running_race_simulation.Models;
+using running_race_simulation.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace _1500_m_race_simulation.Repositories
+namespace running_race_simulation.Repositories
 {
     public class TournamentRepository : ITournamentRepository
     {

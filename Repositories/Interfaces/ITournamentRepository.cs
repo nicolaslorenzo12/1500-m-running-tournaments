@@ -1,4 +1,4 @@
-﻿using _1500_m_race_simulation.Models;
+﻿using running_race_simulation.Models;
 
 public interface ITournamentRepository
 {

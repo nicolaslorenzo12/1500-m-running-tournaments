@@ -1,8 +1,8 @@
-﻿using _1500_m_race_simulation.Data.Configurations;
-using _1500_m_race_simulation.Models;
+﻿using running_race_simulation.Models;
 using Microsoft.EntityFrameworkCore;
+using running_race_simulation.Data.Configurations;
 
-namespace _1500_m_race_simulation.Data
+namespace running_race_simulation.Data
 {
     public class AppDbContext : DbContext
     {
