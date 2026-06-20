@@ -1,4 +1,4 @@
-﻿public enum ResultStatus
+﻿public enum RunnerRaceStatus
 {
     Finished,
     DNF,

@@ -12,7 +12,7 @@
 
         public double? Time { get; private set; }
 
-        public ResultStatus Status { get; private set; }
+        public RunnerRaceStatus Status { get; private set; }
 
         private RaceEntry() { }
 
@@ -25,7 +25,17 @@
 
             Runner = runner;
             RunnerId = runner.Id;
-            Status = ResultStatus.Pending;
+            Status = RunnerRaceStatus.Pending;
+        }
+
+
+        public void SetResult(int position,double time,RunnerRaceStatus status)
+        {
+            Position = position;
+            Time = time;
+            Status = status;
         }
     }
+
+
 }
