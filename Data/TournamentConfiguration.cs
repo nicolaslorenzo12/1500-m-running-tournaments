@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using running_race_simulation.Models;
+using RunningRaceSimulation.Models;
 
 public class TournamentConfiguration : IEntityTypeConfiguration<Tournament>
 {

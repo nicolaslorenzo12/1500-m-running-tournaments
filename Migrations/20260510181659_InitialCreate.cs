@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace running_race_simulation.Migrations
+namespace RunningRaceSimulation.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

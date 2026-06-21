@@ -1,4 +1,4 @@
-﻿namespace running_race_simulation.Services.Interfaces
+﻿namespace RunningRaceSimulation.Services.Interfaces
 {
     public interface IRaceService
     {

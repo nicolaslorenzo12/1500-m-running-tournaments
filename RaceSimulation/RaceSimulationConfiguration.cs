@@ -1,6 +1,6 @@
-﻿using running_race_simulation.RaceSimulation;
+﻿using RunningRaceSimulation.RaceSimulation;
 
-namespace running_race_simulation.RaceSimulation
+namespace RunningRaceSimulation.RaceSimulation
 {
     public static class RaceSimulationConfiguration
     {

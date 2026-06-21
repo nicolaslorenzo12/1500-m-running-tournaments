@@ -1,6 +1,6 @@
-﻿using running_race_simulation.Models;
+﻿using RunningRaceSimulation.Models;
 
-namespace running_race_simulation.Services.Interfaces
+namespace RunningRaceSimulation.Services.Interfaces
 {
     public interface ITournamentService
     {

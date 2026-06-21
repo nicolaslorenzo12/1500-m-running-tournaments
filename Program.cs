@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using running_race_simulation.Data;
-using running_race_simulation.RaceSimulation;
-using running_race_simulation.Repositories;
-using running_race_simulation.Repositories.Interfaces;
-using running_race_simulation.Services;
-using running_race_simulation.Services.Interfaces;
+using RunningRaceSimulation.Data;
+using RunningRaceSimulation.RaceSimulation;
+using RunningRaceSimulation.Repositories;
+using RunningRaceSimulation.Repositories.Interfaces;
+using RunningRaceSimulation.Services;
+using RunningRaceSimulation.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 

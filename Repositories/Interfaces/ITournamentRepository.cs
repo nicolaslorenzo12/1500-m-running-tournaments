@@ -1,4 +1,4 @@
-﻿using running_race_simulation.Models;
+﻿using RunningRaceSimulation.Models;
 
 public interface ITournamentRepository
 {

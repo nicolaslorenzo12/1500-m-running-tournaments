@@ -1,8 +1,8 @@
-﻿using running_race_simulation.RaceSimulation;
-using running_race_simulation.Repositories.Interfaces;
-using running_race_simulation.Services.Interfaces;
+﻿using RunningRaceSimulation.RaceSimulation;
+using RunningRaceSimulation.Repositories.Interfaces;
+using RunningRaceSimulation.Services.Interfaces;
 
-namespace running_race_simulation.Services
+namespace RunningRaceSimulation.Services
 {
     public class RaceService : IRaceService
     {
@@ -23,11 +23,7 @@ namespace running_race_simulation.Services
 
             ArgumentNullException.ThrowIfNull(race);
 
-            race.Start();
-
             _raceSimulator.Simulate(race);
-
-            race.Complete();
 
             _raceRepository.Update(race);
         }

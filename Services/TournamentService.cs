@@ -1,8 +1,9 @@
-﻿using running_race_simulation.Models;
-using running_race_simulation.Repositories.Interfaces;
-using running_race_simulation.Services.Interfaces;
+﻿using RunningRaceSimulation.Entities;
+using RunningRaceSimulation.Models;
+using RunningRaceSimulation.Repositories.Interfaces;
+using RunningRaceSimulation.Services.Interfaces;
 
-namespace running_race_simulation.Services
+namespace RunningRaceSimulation.Services
 {
     public class TournamentService : ITournamentService
     {
@@ -71,7 +72,11 @@ namespace running_race_simulation.Services
 
                 var race = new Race(RoundType.Heats);
 
-                race.AddRunners(raceRunners);
+                var entries = raceRunners
+                    .Select(r => new RaceEntry(r))
+                    .ToList();
+
+                race.AddEntries(entries);
 
                 tournament.AddRace(race);
             }

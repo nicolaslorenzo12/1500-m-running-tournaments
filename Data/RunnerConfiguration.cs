@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using running_race_simulation.Models;
+using RunningRaceSimulation.Models;
 
-namespace running_race_simulation.Data.Configurations
+namespace RunningRaceSimulation.Data.Configurations
 {
     public class RunnerConfiguration : IEntityTypeConfiguration<Runner>
     {

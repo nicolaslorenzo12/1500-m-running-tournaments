@@ -1,6 +1,7 @@
-﻿using running_race_simulation.Models;
+﻿using RunningRaceSimulation.Entities;
+using RunningRaceSimulation.Models;
 
-namespace running_race_simulation.RaceSimulation
+namespace RunningRaceSimulation.RaceSimulation
 {
     public class RaceSimulator : IRaceSimulator
     {
@@ -9,6 +10,9 @@ namespace running_race_simulation.RaceSimulation
 
         public void Simulate(Race race)
         {
+
+            race.Status = RaceStatus.InProgress;
+
             var runnerStates = race.Entries
                 .Select(e => new RunnerRaceState(e.Runner))
                 .ToList();
@@ -27,6 +31,8 @@ namespace running_race_simulation.RaceSimulation
             ApplyResults(
                 race,
                 runnerStates);
+
+            race.Status = RaceStatus.Completed;
         }
 
         private void SimulateNextSegment(
@@ -117,25 +123,22 @@ namespace running_race_simulation.RaceSimulation
             MarkFinishedRunners(
                 runnerStates);
 
-            var orderedRunners =
-                RankRunners(
-                    runnerStates);
+            var orderedRunners = RankRunners(runnerStates);
 
             for (int position = 0;
                 position < orderedRunners.Count;
                 position++)
             {
-                var runnerState =
-                    orderedRunners[position];
+                var runnerState = orderedRunners[position];
 
                 var raceEntry = race.Entries.Single(
                     e => e.RunnerId ==
                         runnerState.Runner.Id);
 
-                raceEntry.SetResult(
-                    position + 1,
-                    CalculateRaceTime(runnerState),
-                    runnerState.Status);
+                raceEntry.Position = position + 1;
+                raceEntry.Time = CalculateRaceTime(runnerState);
+                raceEntry.Status = runnerState.Status;
+
             }
         }
 

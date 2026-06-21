@@ -1,4 +1,4 @@
-﻿namespace running_race_simulation.Models
+﻿namespace RunningRaceSimulation.Models
 {
     public enum RoundType
     {

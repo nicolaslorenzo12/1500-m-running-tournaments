@@ -1,9 +1,9 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
-using running_race_simulation.Mappers;
-using running_race_simulation.Services.Interfaces;
+using RunningRaceSimulation.Mappers;
+using RunningRaceSimulation.Services.Interfaces;
 
-namespace running_race_simulation.Controllers
+namespace RunningRaceSimulation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -1,7 +1,7 @@
-﻿using running_race_simulation.Services.Interfaces;
+﻿using RunningRaceSimulation.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace running_race_simulation.Controllers
+namespace RunningRaceSimulation.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

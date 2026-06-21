@@ -1,6 +1,6 @@
-﻿using running_race_simulation.Models;
+﻿using RunningRaceSimulation.Entities;
 
-namespace running_race_simulation.Repositories.Interfaces
+namespace RunningRaceSimulation.Repositories.Interfaces
 {
     public interface IRaceRepository
     {

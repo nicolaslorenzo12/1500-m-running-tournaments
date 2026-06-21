@@ -1,4 +1,4 @@
-﻿namespace running_race_simulation.DTOs
+﻿namespace RunningRaceSimulation.DTOs
 {
     public class CreatedRaceDTO
     {

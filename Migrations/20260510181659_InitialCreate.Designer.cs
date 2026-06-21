@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using running_race_simulation.Data;
+using RunningRaceSimulation.Data;
 
 #nullable disable
 
-namespace running_race_simulation.Migrations
+namespace RunningRaceSimulation.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     [Migration("20260510181659_InitialCreate")]

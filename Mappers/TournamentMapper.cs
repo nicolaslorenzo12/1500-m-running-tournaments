@@ -1,7 +1,8 @@
-﻿using running_race_simulation.DTOs;
-using running_race_simulation.Models;
+﻿using RunningRaceSimulation.DTOs;
+using RunningRaceSimulation.Entities;
+using RunningRaceSimulation.Models;
 
-namespace running_race_simulation.Mappers
+namespace RunningRaceSimulation.Mappers
 {
     public static class TournamentMapper
     {

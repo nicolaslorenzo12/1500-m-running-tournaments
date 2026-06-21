@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using running_race_simulation.Data;
-using running_race_simulation.Models;
-using running_race_simulation.Repositories.Interfaces;
+using RunningRaceSimulation.Data;
+using RunningRaceSimulation.Entities;
+using RunningRaceSimulation.Repositories.Interfaces;
 
-namespace running_race_simulation.Repositories
+namespace RunningRaceSimulation.Repositories
 {
     public class RaceRepository : IRaceRepository
     {
