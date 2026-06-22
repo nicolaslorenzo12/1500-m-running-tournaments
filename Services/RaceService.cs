@@ -21,8 +21,6 @@ namespace RunningRaceSimulation.Services
         {
             var race = _raceRepository.GetById(raceId);
 
-            ArgumentNullException.ThrowIfNull(race);
-
             _raceSimulator.Simulate(race);
 
             _raceRepository.Update(race);

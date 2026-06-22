@@ -10,167 +10,103 @@ namespace RunningRaceSimulation.RaceSimulation
 
         public void Simulate(Race race)
         {
-
             race.Status = RaceStatus.InProgress;
 
-            var runnerStates = race.Entries
+            var runners = race.Entries
                 .Select(e => new RunnerRaceState(e.Runner))
                 .ToList();
 
-            var segmentNumber = 0;
-
-            while (segmentNumber < TotalSegments)
+            for (int segment = 1; segment <= TotalSegments; segment++)
             {
-                segmentNumber++;
-
-                SimulateNextSegment(
-                    runnerStates,
-                    segmentNumber);
+                SimulateSegment(runners, segment);
             }
 
-            ApplyResults(
-                race,
-                runnerStates);
+            MarkFinishedRunners(runners);
+            ApplyResults(race, runners);
 
             race.Status = RaceStatus.Completed;
         }
 
-        private void SimulateNextSegment(
-            List<RunnerRaceState> runnerStates,
-            int segmentNumber)
+        private void SimulateSegment(
+            List<RunnerRaceState> runners,
+            int segment)
         {
-            foreach (var runnerState in runnerStates)
+            var profile = RaceSimulationConfiguration.SegmentProfiles[segment];
+            var baseTime = RaceSimulationConfiguration.BaseSegmentTimes[segment];
+
+            foreach (var runner in runners)
             {
-                bool runnerIsActive =
-                    runnerState.Status != RunnerRaceStatus.DNF;
-
-                bool runnerDNFsThisSegment =
-                    runnerIsActive
-                    && DidRunnerDNFInCurrentSegment();
-
-                if (runnerDNFsThisSegment)
+                if (runner.Status == RunnerRaceStatus.DNF)
                 {
-                    runnerState.Status =
-                        RunnerRaceStatus.DNF;
+                    continue;
                 }
 
-                if (runnerState.Status != RunnerRaceStatus.DNF)
+                if (Random.Shared.NextDouble() < DnfChancePerSegment)
                 {
-                    var simulatedTime =
-                        GenerateSegmentTime(
-                            runnerState,
-                            segmentNumber);
-
-                    runnerState.SegmentTimes
-                        .Add(simulatedTime);
+                    runner.Status = RunnerRaceStatus.DNF;
+                }
+                else
+                {
+                    runner.SegmentTimes.Add(
+                        CalculateSegmentTime(runner, profile, baseTime));
                 }
             }
         }
 
-        private bool DidRunnerDNFInCurrentSegment()
+        private double CalculateSegmentTime(
+            RunnerRaceState runner,
+            SegmentProfile profile,
+            double baseTime)
         {
-            return Random.Shared.NextDouble()
-                < DnfChancePerSegment;
-        }
-
-        private double GenerateSegmentTime(
-            RunnerRaceState runnerState,
-            int segmentNumber)
-        {
-            var profile =
-                RaceSimulationConfiguration
-                    .SegmentProfiles[segmentNumber];
-
-            var baseTime =
-                RaceSimulationConfiguration
-                    .BaseSegmentTimes[segmentNumber];
-
             var strength =
-                CalculateStrength(
-                    runnerState.Runner.Ranking);
-
-            var rankingAdvantage =
-                strength
-                * profile.RankingInfluence;
-
-            var variation =
-                GenerateVariation(
-                    profile.PerformanceVariation);
+                1.0 / Math.Sqrt(runner.Runner.Ranking);
 
             return baseTime
-                - rankingAdvantage
-                + variation;
+                - (strength * profile.RankingInfluence)
+                + GenerateVariation(profile.PerformanceVariation);
         }
 
-        private double CalculateStrength(
-            int ranking)
-        {
-            return 1.0 / Math.Sqrt(ranking);
-        }
-
-        private double GenerateVariation(
-            double performanceVariation)
+        private double GenerateVariation(double variation)
         {
             return Random.Shared.NextDouble()
-                * (performanceVariation * 2)
-                - performanceVariation;
+                * (variation * 2)
+                - variation;
+        }
+
+        private void MarkFinishedRunners(
+            IEnumerable<RunnerRaceState> runners)
+        {
+            foreach (var runner in runners)
+            {
+                if (runner.Status != RunnerRaceStatus.DNF)
+                {
+                    runner.Status = RunnerRaceStatus.Finished;
+                }
+            }
         }
 
         private void ApplyResults(
             Race race,
-            List<RunnerRaceState> runnerStates)
+            List<RunnerRaceState> runners)
         {
-            MarkFinishedRunners(
-                runnerStates);
-
-            var orderedRunners = RankRunners(runnerStates);
-
-            for (int position = 0;
-                position < orderedRunners.Count;
-                position++)
-            {
-                var runnerState = orderedRunners[position];
-
-                var raceEntry = race.Entries.Single(
-                    e => e.RunnerId ==
-                        runnerState.Runner.Id);
-
-                raceEntry.Position = position + 1;
-                raceEntry.Time = CalculateRaceTime(runnerState);
-                raceEntry.Status = runnerState.Status;
-
-            }
-        }
-
-        private void MarkFinishedRunners(
-            List<RunnerRaceState> runnerStates)
-        {
-            foreach (var runnerState in runnerStates)
-            {
-                if (runnerState.Status != RunnerRaceStatus.DNF)
-                {
-                    runnerState.Status =
-                        RunnerRaceStatus.Finished;
-                }
-            }
-        }
-
-        private List<RunnerRaceState> RankRunners(
-            List<RunnerRaceState> runnerStates)
-        {
-            return runnerStates
+            var rankedRunners = runners
                 .OrderBy(r => r.Status == RunnerRaceStatus.DNF)
                 .ThenBy(r => r.TotalTime)
                 .ToList();
-        }
 
-        private double CalculateRaceTime(
-            RunnerRaceState runnerState)
-        {
-            return runnerState.Status ==
-                RunnerRaceStatus.DNF
+            for (int position = 0; position < rankedRunners.Count; position++)
+            {
+                var runner = rankedRunners[position];
+
+                var entry = race.Entries.Single(
+                    e => e.RunnerId == runner.Runner.Id);
+
+                entry.Position = position + 1;
+                entry.Status = runner.Status;
+                entry.Time = runner.Status == RunnerRaceStatus.DNF
                     ? 0
-                    : runnerState.TotalTime;
+                    : runner.TotalTime;
+            }
         }
     }
 }
