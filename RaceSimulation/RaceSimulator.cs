@@ -27,28 +27,24 @@ namespace RunningRaceSimulation.RaceSimulation
             race.Status = RaceStatus.Completed;
         }
 
-        private void SimulateSegment(
-            List<RunnerRaceState> runners,
-            int segment)
+        private void SimulateSegment(List<RunnerRaceState> runners, int segment)
         {
             var profile = RaceSimulationConfiguration.SegmentProfiles[segment];
             var baseTime = RaceSimulationConfiguration.BaseSegmentTimes[segment];
 
             foreach (var runner in runners)
             {
-                if (runner.Status == RunnerRaceStatus.DNF)
+                if (runner.Status != RunnerRaceStatus.DNF)
                 {
-                    continue;
-                }
-
-                if (Random.Shared.NextDouble() < DnfChancePerSegment)
-                {
-                    runner.Status = RunnerRaceStatus.DNF;
-                }
-                else
-                {
-                    runner.SegmentTimes.Add(
-                        CalculateSegmentTime(runner, profile, baseTime));
+                    if (Random.Shared.NextDouble() < DnfChancePerSegment)
+                    {
+                        runner.Status = RunnerRaceStatus.DNF;
+                    }
+                    else
+                    {
+                        runner.SegmentTimes.Add(
+                            CalculateSegmentTime(runner, profile, baseTime));
+                    }
                 }
             }
         }
