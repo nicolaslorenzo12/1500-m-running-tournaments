@@ -1,4 +1,5 @@
-﻿using RunningRaceSimulation.RaceSimulation;
+﻿using RunningRaceSimulation.Entities;
+using RunningRaceSimulation.RaceSimulation;
 using RunningRaceSimulation.Repositories.Interfaces;
 using RunningRaceSimulation.Services.Interfaces;
 
@@ -19,11 +20,17 @@ namespace RunningRaceSimulation.Services
 
         public void StartRace(int raceId)
         {
-            var race = _raceRepository.GetById(raceId);
+            var race = FindRace(raceId);
 
             _raceSimulator.Simulate(race);
 
             _raceRepository.Update(race);
+        }
+
+        private Race FindRace(int raceId)
+        {
+            return _raceRepository.GetById(raceId)
+                ?? throw new KeyNotFoundException($"Race {raceId} not found.");
         }
     }
 }
