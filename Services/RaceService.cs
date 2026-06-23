@@ -1,4 +1,6 @@
 ﻿using RunningRaceSimulation.Entities;
+using RunningRaceSimulation.Exceptions;
+using RunningRaceSimulation.Models;
 using RunningRaceSimulation.RaceSimulation;
 using RunningRaceSimulation.Repositories.Interfaces;
 using RunningRaceSimulation.Services.Interfaces;
@@ -18,19 +20,31 @@ namespace RunningRaceSimulation.Services
             _raceSimulator = raceSimulator;
         }
 
-        public void StartRace(int raceId)
+        public async Task<Race> StartRaceAsync(int raceId)
         {
-            var race = FindRace(raceId);
+            var race = await FindRace(raceId);
+
+            CheckRaceNotStarted(race);
 
             _raceSimulator.Simulate(race);
 
-            _raceRepository.Update(race);
+           await _raceRepository.UpdateAsync(race);
+
+            return race;
         }
 
-        private Race FindRace(int raceId)
+        private async Task<Race> FindRace(int raceId)
         {
-            return _raceRepository.GetById(raceId)
-                ?? throw new KeyNotFoundException($"Race {raceId} not found.");
+            return await _raceRepository.GetByIdAsync(raceId)
+                ?? throw new RaceNotFoundException(raceId);
+        }
+
+        private void CheckRaceNotStarted(Race race)
+        {
+            if (race.Status is RaceStatus.InProgress or RaceStatus.Completed)
+            {
+                throw new RaceAlreadyStartedException(race);
+            }
         }
     }
 }

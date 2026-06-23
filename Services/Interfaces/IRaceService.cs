@@ -1,7 +1,9 @@
-﻿namespace RunningRaceSimulation.Services.Interfaces
+﻿using RunningRaceSimulation.Entities;
+
+namespace RunningRaceSimulation.Services.Interfaces
 {
     public interface IRaceService
     {
-        void StartRace(int raceId);
+        Task<Race> StartRaceAsync(int raceId);
     }
 }

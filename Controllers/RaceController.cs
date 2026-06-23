@@ -1,5 +1,6 @@
-﻿using RunningRaceSimulation.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using RunningRaceSimulation.Entities;
+using RunningRaceSimulation.Services.Interfaces;
 
 namespace RunningRaceSimulation.Controllers
 {
@@ -14,10 +15,12 @@ namespace RunningRaceSimulation.Controllers
             _raceService = raceService;
         }
 
-        [HttpPost("{raceId}/start")]
-        public IActionResult StartRace(int raceId)
+        [HttpPost("race/{raceId}/start")]
+        public async Task<ActionResult<Race>> StartRace(int raceId)
         {
-            _raceService.StartRace(raceId);
+            var raceResult = await _raceService.StartRaceAsync(raceId);
+
+            // Later on, create a dto to return the race result
 
             return NoContent();
         }

@@ -3,30 +3,27 @@ using RunningRaceSimulation.Data;
 using RunningRaceSimulation.Entities;
 using RunningRaceSimulation.Repositories.Interfaces;
 
-namespace RunningRaceSimulation.Repositories
+public class RaceRepository : IRaceRepository
 {
-    public class RaceRepository : IRaceRepository
+    private readonly AppDbContext _context;
+
+    public RaceRepository(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public RaceRepository(AppDbContext context)
-        {
-            _context = context;
-        }
+    public async Task<Race?> GetByIdAsync(int raceId)
+    {
+        return await _context.Races
+            .Include(r => r.Entries)
+                .ThenInclude(e => e.Runner)
+            .SingleOrDefaultAsync(r => r.Id == raceId);
+    }
 
-        public Race GetById(int raceId)
-        {
-            return _context.Races
-                .Include(r => r.Entries)
-                    .ThenInclude(e => e.Runner)
-                        .Single(r => r.Id == raceId);
-        }
+    public async Task UpdateAsync(Race race)
+    {
+        _context.Races.Update(race);
 
-        public void Update(Race race)
-        {
-            _context.Races.Update(race);
-
-            _context.SaveChanges();
-        }
+        await _context.SaveChangesAsync();
     }
 }

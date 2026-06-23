@@ -4,8 +4,7 @@ namespace RunningRaceSimulation.Repositories.Interfaces
 {
     public interface IRaceRepository
     {
-        Race GetById(int raceId);
-
-        void Update(Race race);
+        Task<Race?> GetByIdAsync(int raceId);
+        Task UpdateAsync(Race race);
     }
 }

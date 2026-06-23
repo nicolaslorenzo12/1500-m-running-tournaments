@@ -1,3 +1,4 @@
+using _1500_m_race_simulation.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using RunningRaceSimulation.Data;
 using RunningRaceSimulation.RaceSimulation;
@@ -25,12 +26,18 @@ builder.Services.AddScoped<IRaceService, RaceService>();
 
 builder.Services.AddScoped<IRaceSimulator, RaceSimulator>();
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString(
             "DefaultConnection")));
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {

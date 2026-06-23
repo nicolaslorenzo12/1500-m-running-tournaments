@@ -29,11 +29,6 @@ namespace RunningRaceSimulation.Services
         {
             var allRunners = _runnerRepository.GetAll();
 
-            if (allRunners.Count < TotalTournamentRunners)
-            {
-                throw new ArgumentException(
-                    $"At least {TotalTournamentRunners} runners are required");
-            }
 
             var selectedRunners = allRunners
                 .OrderBy(r => Random.Shared.Next())
