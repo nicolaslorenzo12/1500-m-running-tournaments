@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Diagnostics;
 using RunningRaceSimulation.Exceptions;
 
-namespace _1500_m_race_simulation.Exceptions;
+namespace RunningRaceSimulation.Exceptions;
 
 public class GlobalExceptionHandler : IExceptionHandler
 {

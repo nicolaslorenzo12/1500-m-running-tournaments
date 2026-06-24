@@ -1,5 +1,7 @@
-﻿using RunningRaceSimulation.Entities;
+﻿using RunningRaceSimulation.DTOs;
+using RunningRaceSimulation.Entities;
 using RunningRaceSimulation.Exceptions;
+using RunningRaceSimulation.Mappers;
 using RunningRaceSimulation.Models;
 using RunningRaceSimulation.RaceSimulation;
 using RunningRaceSimulation.Repositories.Interfaces;
@@ -11,16 +13,18 @@ namespace RunningRaceSimulation.Services
     {
         private readonly IRaceRepository _raceRepository;
         private readonly IRaceSimulator _raceSimulator;
+        private readonly RaceMapper _raceMapper;
 
         public RaceService(
             IRaceRepository raceRepository,
-            IRaceSimulator raceSimulator)
+            IRaceSimulator raceSimulator, RaceMapper raceMapper)
         {
             _raceRepository = raceRepository;
             _raceSimulator = raceSimulator;
+            _raceMapper = raceMapper;
         }
 
-        public async Task<Race> StartRaceAsync(int raceId)
+        public async Task<IReadOnlyList<RaceRunnerResultDTO>> StartRaceAsync(int raceId)
         {
             var race = await FindRace(raceId);
 
@@ -28,9 +32,9 @@ namespace RunningRaceSimulation.Services
 
             _raceSimulator.Simulate(race);
 
-           await _raceRepository.UpdateAsync(race);
+            await _raceRepository.UpdateAsync(race);
 
-            return race;
+            return _raceMapper.RaceResultsToDTO(race);
         }
 
         private async Task<Race> FindRace(int raceId)

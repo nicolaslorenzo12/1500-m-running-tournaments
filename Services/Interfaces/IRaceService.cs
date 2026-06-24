@@ -1,9 +1,9 @@
-﻿using RunningRaceSimulation.Entities;
+﻿using RunningRaceSimulation.DTOs;
 
 namespace RunningRaceSimulation.Services.Interfaces
 {
     public interface IRaceService
     {
-        Task<Race> StartRaceAsync(int raceId);
+        Task<IReadOnlyList<RaceRunnerResultDTO>> StartRaceAsync(int raceId);
     }
 }

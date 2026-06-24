@@ -1,6 +1,7 @@
-using _1500_m_race_simulation.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using RunningRaceSimulation.Data;
+using RunningRaceSimulation.Exceptions;
+using RunningRaceSimulation.Mappers;
 using RunningRaceSimulation.RaceSimulation;
 using RunningRaceSimulation.Repositories;
 using RunningRaceSimulation.Repositories.Interfaces;
@@ -23,6 +24,7 @@ builder.Services.AddSingleton<RaceSimulator>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();
 
 builder.Services.AddScoped<IRaceService, RaceService>();
+builder.Services.AddScoped<RaceMapper>();
 
 builder.Services.AddScoped<IRaceSimulator, RaceSimulator>();
 

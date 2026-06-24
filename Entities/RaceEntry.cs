@@ -10,9 +10,9 @@ namespace RunningRaceSimulation.Entities
 
         public Runner Runner { get; set; } = null!;
 
-        public int? Position { get; set; }
+        public int Position { get; set; }
 
-        public double? Time { get; set; }
+        public double Time { get; set; }
 
         public RunnerRaceStatus Status { get; set; }
 
