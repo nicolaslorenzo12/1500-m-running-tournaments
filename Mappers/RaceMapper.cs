@@ -8,11 +8,12 @@ namespace RunningRaceSimulation.Mappers
         public IReadOnlyList<RaceRunnerResultDTO> RaceResultsToDTO(Race race)
         {
             return race.Entries
+                .OrderBy(entry => entry.Position)
                 .Select(entry => new RaceRunnerResultDTO(
                     entry.Runner.Name,
                     entry.Runner.Ranking,
                     entry.Position,
-                    TimeSpan.FromSeconds(entry.Time).ToString(@"m\:ss"),
+                    TimeSpan.FromSeconds(entry.Time).ToString(@"m\:ss\.fff"),
                     entry.Status))
                 .ToList();
         }

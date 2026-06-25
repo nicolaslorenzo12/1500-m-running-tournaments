@@ -6,7 +6,7 @@ namespace RunningRaceSimulation.RaceSimulation
     public class RaceSimulator : IRaceSimulator
     {
         private const int TotalSegments = 4;
-        private const double DnfChancePerSegment = 0.2;
+        private const double DnfChancePerSegment = 0.005;
 
         public void Simulate(Race race)
         {

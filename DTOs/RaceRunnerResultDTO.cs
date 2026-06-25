@@ -6,7 +6,7 @@
         public int RunnerRanking { get; }
         public int Position { get; }
         public string FinishTime { get; }
-        public RunnerRaceStatus RunnerRaceStatus { get; }
+        public string RunnerRaceStatus { get; }
 
         public RaceRunnerResultDTO(
             string runnerName,
@@ -19,7 +19,7 @@
             RunnerRanking = runnerRanking;
             Position = position;
             FinishTime = finishTime;
-            RunnerRaceStatus = runnerRaceStatus;
+            RunnerRaceStatus = runnerRaceStatus.ToString();
         }
     }
 }
