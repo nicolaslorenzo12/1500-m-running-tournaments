@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
+using RunningRaceSimulation.DTOs;
 using RunningRaceSimulation.Mappers;
 using RunningRaceSimulation.Services.Interfaces;
 
@@ -18,11 +19,9 @@ namespace RunningRaceSimulation.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTournament([FromBody] string name)
+        public async Task<ActionResult<CreatedTournamentDTO>> CreateTournament([FromBody] string name)
         {
-            var createdTournament = _tournamentService.CreateTournament(name);
-
-            return Ok(TournamentMapper.MapCreatedTournamentToDTO(createdTournament));
+            return Ok(await _tournamentService.CreateTournamentAsync(name));
         }
     }
 }

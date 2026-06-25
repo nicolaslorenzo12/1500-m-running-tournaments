@@ -25,6 +25,7 @@ builder.Services.AddScoped<IRaceRepository, RaceRepository>();
 
 builder.Services.AddScoped<IRaceService, RaceService>();
 builder.Services.AddScoped<RaceMapper>();
+builder.Services.AddScoped<TournamentMapper>();
 
 builder.Services.AddScoped<IRaceSimulator, RaceSimulator>();
 

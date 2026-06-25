@@ -2,6 +2,6 @@
 
 public interface ITournamentRepository
 {
-    void Add(Tournament tournament);
-    Tournament? GetById(int id);
+    Task AddAsync(Tournament tournament);
+    Task<Tournament?> GetByIdAsync(int id);
 }

@@ -4,10 +4,10 @@ using RunningRaceSimulation.Models;
 
 namespace RunningRaceSimulation.Mappers
 {
-    public static class TournamentMapper
+    public class TournamentMapper
     {
 
-        public static CreatedTournamentDTO MapCreatedTournamentToDTO(Tournament tournament)
+        public CreatedTournamentDTO MapCreatedTournamentToDTO(Tournament tournament)
         {
             return new CreatedTournamentDTO
             {
@@ -16,7 +16,7 @@ namespace RunningRaceSimulation.Mappers
             };
         }
 
-        private static CreatedRaceDTO MapCreatedRaceToDTO(Race race)
+        private CreatedRaceDTO MapCreatedRaceToDTO(Race race)
         {
             return new CreatedRaceDTO
             {
@@ -25,7 +25,7 @@ namespace RunningRaceSimulation.Mappers
             };
         }
 
-        private static CreatedRaceEntryDTO MapCreatedRaceEntryToDTO(RaceEntry raceEntry)
+        private CreatedRaceEntryDTO MapCreatedRaceEntryToDTO(RaceEntry raceEntry)
         {
             return new CreatedRaceEntryDTO
             {

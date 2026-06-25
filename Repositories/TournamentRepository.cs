@@ -14,19 +14,19 @@ namespace RunningRaceSimulation.Repositories
             _context = context;
         }
 
-        public void Add(Tournament tournament)
+        public async Task AddAsync(Tournament tournament)
         {
-            _context.Tournaments.Add(tournament);
-            _context.SaveChanges();
+            await _context.Tournaments.AddAsync(tournament);
+            await _context.SaveChangesAsync();
         }
 
-        public Tournament? GetById(int id)
+        public async Task<Tournament?> GetByIdAsync(int id)
         {
-            return _context.Tournaments
+            return await _context.Tournaments
                 .Include(t => t.Races)
                     .ThenInclude(r => r.Entries)
                         .ThenInclude(e => e.Runner)
-                .FirstOrDefault(t => t.Id == id);
+                .FirstOrDefaultAsync(t => t.Id == id);
         }
     }
 }

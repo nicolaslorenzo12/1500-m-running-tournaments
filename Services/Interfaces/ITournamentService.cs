@@ -1,9 +1,10 @@
-﻿using RunningRaceSimulation.Models;
+﻿using RunningRaceSimulation.DTOs;
+using RunningRaceSimulation.Models;
 
 namespace RunningRaceSimulation.Services.Interfaces
 {
     public interface ITournamentService
     {
-        Tournament CreateTournament(string tournamentName);
+        Task<CreatedTournamentDTO> CreateTournamentAsync(string tournamentName);
     }
 }
