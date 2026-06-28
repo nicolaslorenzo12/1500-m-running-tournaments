@@ -1,7 +1,6 @@
 ﻿using RunningRaceSimulation.DTOs;
 using RunningRaceSimulation.Entities;
 using RunningRaceSimulation.Exceptions;
-using RunningRaceSimulation.Mappers;
 using RunningRaceSimulation.Models;
 using RunningRaceSimulation.RaceSimulation;
 using RunningRaceSimulation.Repositories.Interfaces;
@@ -13,15 +12,13 @@ namespace RunningRaceSimulation.Services
     {
         private readonly IRaceRepository _raceRepository;
         private readonly IRaceSimulator _raceSimulator;
-        private readonly RaceMapper _raceMapper;
 
         public RaceService(
             IRaceRepository raceRepository,
-            IRaceSimulator raceSimulator, RaceMapper raceMapper)
+            IRaceSimulator raceSimulator)
         {
             _raceRepository = raceRepository;
             _raceSimulator = raceSimulator;
-            _raceMapper = raceMapper;
         }
 
         public async Task<IReadOnlyList<RaceRunnerResultDTO>> StartRaceAsync(int raceId)
@@ -34,7 +31,15 @@ namespace RunningRaceSimulation.Services
 
             await _raceRepository.UpdateAsync(race);
 
-            return _raceMapper.RaceResultsToDTO(race);
+            return race.Entries
+                .OrderBy(entry => entry.Position)
+                .Select(entry => new RaceRunnerResultDTO(
+                    entry.Runner.Name,
+                    entry.Runner.Ranking,
+                    entry.Position,
+                    TimeSpan.FromSeconds(entry.Time).ToString(@"m\:ss\.fff"),
+                    entry.Status))
+                .ToList();
         }
 
         private async Task<Race> FindRace(int raceId)

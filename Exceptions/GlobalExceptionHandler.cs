@@ -5,6 +5,12 @@ namespace RunningRaceSimulation.Exceptions;
 
 public class GlobalExceptionHandler : IExceptionHandler
 {
+    private readonly IHostEnvironment _environment;
+
+    public GlobalExceptionHandler(IHostEnvironment environment)
+    {
+        _environment = environment;
+    }
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,
         Exception exception,
@@ -26,8 +32,12 @@ public class GlobalExceptionHandler : IExceptionHandler
                 break;
         }
 
+        var error = _environment.IsDevelopment()
+            ? exception.Message
+            : "An unexpected error occurred.";
+
         await httpContext.Response.WriteAsJsonAsync(
-            new { error = exception.Message },
+            new { error },
             cancellationToken);
 
 

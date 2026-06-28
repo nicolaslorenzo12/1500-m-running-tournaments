@@ -2,7 +2,15 @@
 {
     public class CreatedRaceEntryDTO
     {
-        public string RunnerName { get; init; }
-        public int Ranking { get; init; }
+        public string RunnerName { get; }
+        public int Ranking { get; }
+
+        public CreatedRaceEntryDTO(
+            string runnerName,
+            int ranking)
+        {
+            RunnerName = runnerName;
+            Ranking = ranking;
+        }
     }
 }

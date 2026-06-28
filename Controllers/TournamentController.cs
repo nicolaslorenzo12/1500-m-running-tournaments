@@ -1,7 +1,6 @@
 ﻿using Azure.Core;
 using Microsoft.AspNetCore.Mvc;
 using RunningRaceSimulation.DTOs;
-using RunningRaceSimulation.Mappers;
 using RunningRaceSimulation.Services.Interfaces;
 
 namespace RunningRaceSimulation.Controllers

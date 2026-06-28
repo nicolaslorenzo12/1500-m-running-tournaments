@@ -1,6 +1,5 @@
 ﻿using RunningRaceSimulation.DTOs;
 using RunningRaceSimulation.Entities;
-using RunningRaceSimulation.Mappers;
 using RunningRaceSimulation.Models;
 using RunningRaceSimulation.Repositories.Interfaces;
 using RunningRaceSimulation.Services.Interfaces;
@@ -18,16 +17,13 @@ namespace RunningRaceSimulation.Services
 
         private readonly IRunnerRepository _runnerRepository;
         private readonly ITournamentRepository _tournamentRepository;
-        private readonly TournamentMapper _tournamentMapper;
 
         public TournamentService(
             IRunnerRepository runnerRepository,
-            ITournamentRepository tournamentRepository,
-            TournamentMapper tournamentMapper)
+            ITournamentRepository tournamentRepository)
         {
             _runnerRepository = runnerRepository;
             _tournamentRepository = tournamentRepository;
-            _tournamentMapper = tournamentMapper;
         }
 
         public async Task<CreatedTournamentDTO> CreateTournamentAsync(string tournamentName)
@@ -55,7 +51,17 @@ namespace RunningRaceSimulation.Services
 
             await _tournamentRepository.AddAsync(tournament);
 
-            return _tournamentMapper.MapCreatedTournamentToDTO(tournament);
+            return new CreatedTournamentDTO(
+                tournament.Name,
+                tournament.Races
+                    .Select(r => new CreatedRaceDTO(
+                        r.RoundType.ToString(),
+                        r.Entries
+                            .Select(e => new CreatedRaceEntryDTO(
+                                e.Runner.Name,
+                                e.Runner.Ranking))
+                            .ToList()))
+                    .ToList());
         }
 
         private void CreateHeatRaces(
